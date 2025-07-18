@@ -38,13 +38,6 @@ local eggChances = {
     ["Premium Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0}
 }
 
--- This table now defines eggs that should *initially* only show their name.
--- For these eggs, the 'reroll' functionality will then reveal the pet.
-local initialShowOnlyNameEggs = {
-    ["Common Egg"] = true,
-    ["Dinosaur Egg"] = true -- Add Dinosaur Egg here
-}
-
 local displayedEggs = {}
 local autoStopOn = false
 
