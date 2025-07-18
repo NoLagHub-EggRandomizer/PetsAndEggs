@@ -38,9 +38,11 @@ local eggChances = {
     ["Premium Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0}
 }
 
-local realESP = {
-    ["Common Egg"] = true, ["Uncommon Egg"] = true, ["Rare Egg"] = true,
-    ["Common Summer Egg"] = true, ["Rare Summer Egg"] = true
+-- This table now defines eggs that should *initially* only show their name.
+-- For these eggs, the 'reroll' functionality will then reveal the pet.
+local initialShowOnlyNameEggs = {
+    ["Common Egg"] = true,
+    ["Dinosaur Egg"] = true -- Add Dinosaur Egg here
 }
 
 local displayedEggs = {}
@@ -108,9 +110,15 @@ local function addESP(egg)
     if not eggName or not objectId or displayedEggs[objectId] then return end
 
     local labelText, firstPet
-    if realESP[eggName] then
+
+    -- Check if this egg type should initially only show its name
+    if initialShowOnlyNameEggs[eggName] then
         labelText = eggName
+        -- We still generate a 'firstPet' to store it for future rerolls,
+        -- but we don't display it immediately.
+        firstPet = getNonRepeatingRandomPet(eggName, nil)
     else
+        -- For other eggs, immediately show the predicted pet
         firstPet = getNonRepeatingRandomPet(eggName, nil)
         labelText = eggName .. " | " .. (firstPet or "?")
     end
@@ -121,7 +129,7 @@ local function addESP(egg)
         gui = espGui,
         label = espGui:FindFirstChild("TextLabel"),
         eggName = eggName,
-        lastPet = firstPet
+        lastPet = firstPet -- Store the initially generated pet for rerolling
     }
 end
 
@@ -330,6 +338,7 @@ stopBtn.MouseButton1Click:Connect(function()
 end)
 rerollBtn.MouseButton1Click:Connect(function()
     for objectId, data in pairs(displayedEggs) do
+        -- When rerolling, we always get a new pet and display it.
         local pet = getNonRepeatingRandomPet(data.eggName, data.lastPet)
         if pet and data.label then
             data.label.Text = data.eggName .. " | " .. pet
