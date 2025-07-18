@@ -38,7 +38,7 @@ local eggChances = {
     ["Premium Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0}
 }
 local realESP = {
-    ["Common Egg"] = true, ["Uncommon Egg"] = true, ["Rare Egg"] = true,
+    ["Common Egg"] = true, ["Dinosaur Egg"] = true, ["Rare Egg"] = true,
     ["Common Summer Egg"] = true, ["Rare Summer Egg"] = true
 }
 
