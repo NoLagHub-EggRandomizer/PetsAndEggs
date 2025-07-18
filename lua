@@ -107,12 +107,7 @@ local function addESP(egg)
     if not eggName or not objectId or displayedEggs[objectId] then return end
 
     local labelText, firstPet
-    if realESP[eggName] then
-        labelText = eggName
-    else
-        firstPet = getNonRepeatingRandomPet(eggName, nil)
-        labelText = eggName .. " | " .. (firstPet or "?")
-    end
+    labelText = eggName
 
     local espGui = createEspGui(egg, labelText)
     displayedEggs[objectId] = {
