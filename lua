@@ -31,13 +31,15 @@ local eggChances = {
     ["Common Summer Egg"] = {["Starfish"] = 50, ["Seagull"] = 25, ["Crab"] = 25},
     ["Rare Summer Egg"] = {["Flamingo"] = 30, ["Toucan"] = 25, ["Sea Turtle"] = 20, ["Orangutan"] = 15, ["Seal"] = 10},
     ["Paradise Egg"] = {["Ostrich"] = 43, ["Peacock"] = 33, ["Capybara"] = 24, ["Scarlet Macaw"] = 3, ["Mimic Octopus"] = 1},
-    ["Premium Night Egg"] = {["Hedgehog"] = 50, ["Mole"] = 26, ["Frog"] = 14, ["Echo Frog"] = 10}
+    ["Premium Night Egg"] = {["Hedgehog"] = 50, ["Mole"] = 26, ["Frog"] = 14, ["Echo Frog"] = 10},
+    ["Oasis Egg"] = {["Meerkat"] = 45, ["Sand Snake"] = 34.5, ["Axolotl"] = 15, ["Hyacinth Macaw"] = 5, ["Fennec Fox"] = 0},
+    ["Dinosaur Egg"] = {["Raptor"] = 35, ["Triceratops"] = 32.5, ["Stegosaurus"] = 28, ["Pterodactyl"] = 3, ["Brontosaurus"] = 0, ["T-Rex"] = 0},
+    ["Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0},
+    ["Premium Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0}
 }
 
-local realESP = {
-    ["Common Egg"] = true, ["Uncommon Egg"] = true, ["Rare Egg"] = true,
-    ["Common Summer Egg"] = true, ["Rare Summer Egg"] = true
-}
+-- We no longer need 'realESP' or 'initialShowOnlyNameEggs' because ALL eggs
+-- will initially show only their name.
 
 local displayedEggs = {}
 local autoStopOn = false
@@ -103,13 +105,12 @@ local function addESP(egg)
     local objectId = egg:GetAttribute("OBJECT_UUID")
     if not eggName or not objectId or displayedEggs[objectId] then return end
 
-    local labelText, firstPet
-    if realESP[eggName] then
-        labelText = eggName
-    else
-        firstPet = getNonRepeatingRandomPet(eggName, nil)
-        labelText = eggName .. " | " .. (firstPet or "?")
-    end
+    local labelText
+    local firstPet = getNonRepeatingRandomPet(eggName, nil) -- Still generate the first pet
+
+    -- ***** THE KEY CHANGE IS HERE *****
+    -- Always set the initial labelText to ONLY the eggName
+    labelText = eggName
 
     local espGui = createEspGui(egg, labelText)
     displayedEggs[objectId] = {
@@ -117,7 +118,7 @@ local function addESP(egg)
         gui = espGui,
         label = espGui:FindFirstChild("TextLabel"),
         eggName = eggName,
-        lastPet = firstPet
+        lastPet = firstPet -- Store the initially generated pet for rerolling
     }
 end
 
@@ -326,6 +327,7 @@ stopBtn.MouseButton1Click:Connect(function()
 end)
 rerollBtn.MouseButton1Click:Connect(function()
     for objectId, data in pairs(displayedEggs) do
+        -- When rerolling, we always get a new pet and display it.
         local pet = getNonRepeatingRandomPet(data.eggName, data.lastPet)
         if pet and data.label then
             data.label.Text = data.eggName .. " | " .. pet
