@@ -39,8 +39,23 @@ local eggChances = {
 }
 
 local realESP = {
-    ["Common Egg"] = true, ["Uncommon Egg"] = true, ["Rare Egg"] = true,
-    ["Common Summer Egg"] = true, ["Rare Summer Egg"] = true
+    ["Common Egg"] = true,
+    ["Uncommon Egg"] = true,
+    ["Rare Egg"] = true,
+    ["Legendary Egg"] = true,
+    ["Mythic Egg"] = true,
+    ["Bug Egg"] = true,
+    ["Night Egg"] = true,
+    ["Bee Egg"] = true,
+    ["Anti Bee Egg"] = true,
+    ["Common Summer Egg"] = true,
+    ["Rare Summer Egg"] = true,
+    ["Paradise Egg"] = true,
+    ["Premium Night Egg"] = true,
+    ["Oasis Egg"] = true,
+    ["Dinosaur Egg"] = true,
+    ["Primal Egg"] = true,
+    ["Premium Primal Egg"] = true
 }
 
 local displayedEggs = {}
