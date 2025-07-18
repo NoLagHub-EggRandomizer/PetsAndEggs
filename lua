@@ -37,9 +37,10 @@ local eggChances = {
     ["Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0},
     ["Premium Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0}
 }
-
--- We no longer need 'realESP' or 'initialShowOnlyNameEggs' because ALL eggs
--- will initially show only their name.
+local realESP = {
+    ["Common Egg"] = true, ["Uncommon Egg"] = true, ["Rare Egg"] = true,
+    ["Common Summer Egg"] = true, ["Rare Summer Egg"] = true
+}
 
 local displayedEggs = {}
 local autoStopOn = false
@@ -105,12 +106,13 @@ local function addESP(egg)
     local objectId = egg:GetAttribute("OBJECT_UUID")
     if not eggName or not objectId or displayedEggs[objectId] then return end
 
-    local labelText
-    local firstPet = getNonRepeatingRandomPet(eggName, nil) -- Still generate the first pet
-
-    -- ***** THE KEY CHANGE IS HERE *****
-    -- Always set the initial labelText to ONLY the eggName
-    labelText = eggName
+    local labelText, firstPet
+    if realESP[eggName] then
+        labelText = eggName
+    else
+        firstPet = getNonRepeatingRandomPet(eggName, nil)
+        labelText = eggName .. " | " .. (firstPet or "?")
+    end
 
     local espGui = createEspGui(egg, labelText)
     displayedEggs[objectId] = {
@@ -118,7 +120,7 @@ local function addESP(egg)
         gui = espGui,
         label = espGui:FindFirstChild("TextLabel"),
         eggName = eggName,
-        lastPet = firstPet -- Store the initially generated pet for rerolling
+        lastPet = firstPet
     }
 end
 
@@ -327,7 +329,6 @@ stopBtn.MouseButton1Click:Connect(function()
 end)
 rerollBtn.MouseButton1Click:Connect(function()
     for objectId, data in pairs(displayedEggs) do
-        -- When rerolling, we always get a new pet and display it.
         local pet = getNonRepeatingRandomPet(data.eggName, data.lastPet)
         if pet and data.label then
             data.label.Text = data.eggName .. " | " .. pet
