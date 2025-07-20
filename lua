@@ -322,7 +322,18 @@ stopBtn.MouseButton1Click:Connect(function()
     autoStopOn = not autoStopOn
     updateStopBtnColors(stopBtn)
 end)
+local lastRerollTime = 0
+local rerollCooldown = 5 -- seconds
+
 rerollBtn.MouseButton1Click:Connect(function()
+    local now = tick()
+    if now - lastRerollTime < rerollCooldown then
+        -- Optional: display warning
+        warn("Please wait before rerolling again.")
+        return
+    end
+    lastRerollTime = now
+
     for objectId, data in pairs(displayedEggs) do
         local pet = getNonRepeatingRandomPet(data.eggName, data.lastPet)
         if pet and data.label then
