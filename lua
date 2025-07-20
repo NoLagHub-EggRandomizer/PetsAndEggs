@@ -328,8 +328,7 @@ local rerollCooldown = 5 -- seconds
 rerollBtn.MouseButton1Click:Connect(function()
     local now = tick()
     if now - lastRerollTime < rerollCooldown then
-        -- Optional: display warning
-        warn("Please wait before rerolling again.")
+        -- Do nothing if still on cooldown
         return
     end
     lastRerollTime = now
@@ -341,6 +340,23 @@ rerollBtn.MouseButton1Click:Connect(function()
             data.lastPet = pet
         end
     end
+
+    -- Start cooldown countdown
+    rerollBtn.Text = "Cooldown: 5s..."
+    rerollBtn.AutoButtonColor = false
+    rerollBtn.BackgroundColor3 = BUTTON_GRAY
+    rerollBtn.TextColor3 = Color3.new(0.6, 0.6, 0.6)
+
+    task.spawn(function()
+        for i = rerollCooldown - 1, 1, -1 do
+            wait(1)
+            rerollBtn.Text = "Cooldown: " .. i .. "s..."
+        end
+        rerollBtn.Text = "[B] Reroll Pet"
+        rerollBtn.AutoButtonColor = true
+        rerollBtn.BackgroundColor3 = BUTTON_BLUE
+        rerollBtn.TextColor3 = Color3.new(1, 1, 1)
+    end)
 end)
 
 local camera = workspace.CurrentCamera
