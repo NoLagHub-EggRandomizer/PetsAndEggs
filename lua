@@ -323,7 +323,7 @@ stopBtn.MouseButton1Click:Connect(function()
     updateStopBtnColors(stopBtn)
 end)
 local lastRerollTime = 0
-local rerollCooldown = 5 -- seconds
+local rerollCooldown = 3 -- seconds
 
 rerollBtn.MouseButton1Click:Connect(function()
     local now = tick()
@@ -342,24 +342,22 @@ rerollBtn.MouseButton1Click:Connect(function()
     end
 
     -- Start cooldown countdown
-    rerollBtn.Text = "[B] Cooldown: 3s..."
-    rerollBtn.AutoButtonColor = false
-    rerollBtn.BackgroundColor3 = BUTTON_GRAY
-    rerollBtn.TextColor3 = Color3.new(0.6, 0.6, 0.6)
-
-    task.spawn(function()
-        for i = rerollCooldown - 1, 1, -1 do
-            wait(1)
-            rerollBtn.Text = "[B] Cooldown: " .. i .. "s..."
-            rerollBtn.TextColor3 = Color3.new(1, 1, 1)
-        end
-        rerollBtn.Text = "[B] Reroll Pet"
-        rerollBtn.AutoButtonColor = true
-        rerollBtn.BackgroundColor3 = BUTTON_BLUE
+        rerollBtn.Text = "[B] Cooldown: " .. rerollCooldown .. "s..."
+        rerollBtn.AutoButtonColor = false
+        rerollBtn.BackgroundColor3 = BUTTON_GRAY
         rerollBtn.TextColor3 = Color3.new(1, 1, 1)
-    end)
-end)
 
+        task.spawn(function()
+            for i = rerollCooldown - 1, 1, -1 do
+                wait(1)
+                rerollBtn.Text = "[B] Cooldown: " .. i .. "s..."
+                rerollBtn.TextColor3 = Color3.new(1, 1, 1)
+            end
+            rerollBtn.Text = "[B] Reroll Pet"
+            rerollBtn.AutoButtonColor = true
+            rerollBtn.BackgroundColor3 = BUTTON_BLUE
+            rerollBtn.TextColor3 = Color3.new(1, 1, 1)
+        end)
 local camera = workspace.CurrentCamera
 local originalFOV
 local zoomFOV = 60
