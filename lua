@@ -342,22 +342,21 @@ rerollBtn.MouseButton1Click:Connect(function()
     end
 
     -- Start cooldown countdown
-        rerollBtn.Text = "[B] Cooldown: " .. rerollCooldown .. "s..."
-        rerollBtn.AutoButtonColor = false
-        rerollBtn.BackgroundColor3 = BUTTON_GRAY
-        rerollBtn.TextColor3 = Color3.new(1, 1, 1) -- Make it white immediately
+rerollBtn.Text = "[B] Cooldown: " .. rerollCooldown .. "s..."
+rerollBtn.AutoButtonColor = false
+rerollBtn.BackgroundColor3 = BUTTON_GRAY
+rerollBtn.TextColor3 = Color3.new(1, 1, 1)
 
-        task.spawn(function()
-            for i = rerollCooldown - 1, 1, -1 do
-                wait(1)
-                rerollBtn.Text = "[B] Cooldown: " .. i .. "s..."
-            end
-            wait(1)
-            rerollBtn.Text = "[B] Reroll Pet"
-            rerollBtn.AutoButtonColor = true
-            rerollBtn.BackgroundColor3 = BUTTON_BLUE
-            rerollBtn.TextColor3 = Color3.new(1, 1, 1)
-        end)
+task.spawn(function()
+    for i = rerollCooldown - 1, 1, -1 do
+        wait(1)
+        rerollBtn.Text = "[B] Cooldown: " .. i .. "s..."
+    end
+    rerollBtn.Text = "[B] Reroll Pet"
+    rerollBtn.AutoButtonColor = true
+    rerollBtn.BackgroundColor3 = BUTTON_BLUE
+    rerollBtn.TextColor3 = Color3.new(1, 1, 1)
+end)
 local camera = workspace.CurrentCamera
 local originalFOV
 local zoomFOV = 60
