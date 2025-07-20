@@ -322,7 +322,14 @@ stopBtn.MouseButton1Click:Connect(function()
     autoStopOn = not autoStopOn
     updateStopBtnColors(stopBtn)
 end)
+
+local isCooldown = false
+
 rerollBtn.MouseButton1Click:Connect(function()
+    if isCooldown then return end -- Prevent clicking during cooldown
+    isCooldown = true
+
+    -- Reroll pets
     for objectId, data in pairs(displayedEggs) do
         local pet = getNonRepeatingRandomPet(data.eggName, data.lastPet)
         if pet and data.label then
@@ -330,6 +337,26 @@ rerollBtn.MouseButton1Click:Connect(function()
             data.lastPet = pet
         end
     end
+
+    -- Start cooldown countdown
+    local countdown = 3
+    local originalText = "[B] Reroll Pet Display"
+    rerollBtn.Text = "[B] Cooldown: " .. countdown .. "s"
+    rerollBtn.BackgroundColor3 = BUTTON_GRAY
+
+    local function countdownTick()
+        countdown -= 1
+        if countdown > 0 then
+            rerollBtn.Text = "[B] Cooldown: " .. countdown .. "s"
+            task.delay(1, countdownTick)
+        else
+            rerollBtn.Text = originalText
+            rerollBtn.BackgroundColor3 = BUTTON_BLUE
+            isCooldown = false
+        end
+    end
+
+    task.delay(1, countdownTick)
 end)
 
 local camera = workspace.CurrentCamera
