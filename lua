@@ -341,17 +341,18 @@ rerollBtn.MouseButton1Click:Connect(function()
         end
     end
 
-    -- Start cooldown countdown
+-- Start cooldown countdown
 rerollBtn.Text = "[B] Cooldown: " .. rerollCooldown .. "s..."
 rerollBtn.AutoButtonColor = false
 rerollBtn.BackgroundColor3 = BUTTON_GRAY
-rerollBtn.TextColor3 = Color3.new(1, 1, 1)
+rerollBtn.TextColor3 = Color3.new(1, 1, 1) -- Make it white immediately
 
 task.spawn(function()
     for i = rerollCooldown - 1, 1, -1 do
         wait(1)
         rerollBtn.Text = "[B] Cooldown: " .. i .. "s..."
     end
+    wait(1)
     rerollBtn.Text = "[B] Reroll Pet"
     rerollBtn.AutoButtonColor = true
     rerollBtn.BackgroundColor3 = BUTTON_BLUE
