@@ -350,7 +350,8 @@ rerollBtn.MouseButton1Click:Connect(function()
     task.spawn(function()
         for i = rerollCooldown - 1, 1, -1 do
             wait(1)
-            rerollBtn.Text = "Cooldown: " .. i .. "s..."
+            rerollBtn.Text = "[B] Cooldown: " .. i .. "s..."
+            rerollBtn.TextColor3 = Color3.new(1, 1, 1)
         end
         rerollBtn.Text = "[B] Reroll Pet"
         rerollBtn.AutoButtonColor = true
