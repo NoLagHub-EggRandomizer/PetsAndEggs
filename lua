@@ -35,7 +35,8 @@ local eggChances = {
     ["Oasis Egg"] = {["Meerkat"] = 45, ["Sand Snake"] = 34.5, ["Axolotl"] = 15, ["Hyacinth Macaw"] = 5, ["Fennec Fox"] = 0},
     ["Dinosaur Egg"] = {["Raptor"] = 35, ["Triceratops"] = 32.5, ["Stegosaurus"] = 28, ["Pterodactyl"] = 3, ["Brontosaurus"] = 0, ["T-Rex"] = 0},
     ["Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0},
-    ["Premium Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0}
+    ["Premium Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3, ["Ankylosaurus"] = 0, ["Spinosaurus"] = 0}, 
+    ["Zen Egg"] = {["Shiba Inu"] = 40, ["Nihonzaru"] = 31, ["Tanuki"] = 20.82, ["Tanchozuru"] = 4.6, ["Kappa"] = 3.5, ["Kitsune"] = 0}
 }
 local realESP = {
     ["Common Egg"] = true, ["Uncommon Egg"] = true, ["Rare Egg"] = true,
