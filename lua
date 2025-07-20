@@ -342,7 +342,7 @@ rerollBtn.MouseButton1Click:Connect(function()
     end
 
     -- Start cooldown countdown
-    rerollBtn.Text = "Cooldown: 5s..."
+    rerollBtn.Text = "[B] Cooldown: 5s..."
     rerollBtn.AutoButtonColor = false
     rerollBtn.BackgroundColor3 = BUTTON_GRAY
     rerollBtn.TextColor3 = Color3.new(0.6, 0.6, 0.6)
