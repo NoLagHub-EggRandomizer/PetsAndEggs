@@ -37,6 +37,9 @@ local eggChances = {
     ["Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3},
     ["Premium Primal Egg"] = {["Parasaurolophus"] = 35, ["Iguanodon"] = 32.5, ["Pachycephalosaurus"] = 28, ["Dilophosaurus"] = 3}, 
     ["Zen Egg"] = {["Shiba Inu"] = 40, ["Nihonzaru"] = 31, ["Tanuki"] = 20.82, ["Tanchozuru"] = 4.6, ["Kappa"] = 3.5}
+    ["Gourmet Egg"] = {["Bagel Bunny"] = 50, ["Pancake Mole"] = 38, ["Sushi Bear"] = 7, ["Spaghetti Sloth"] = 4}
+
+
 }
 local realESP = {
     ["Common Egg"] = true, ["Uncommon Egg"] = true, ["Rare Egg"] = true,
@@ -485,7 +488,7 @@ infoBtn.MouseButton1Click:Connect(function()
     infoLabel.Position = UDim2.new(0, 0, 0, 0)
     infoLabel.BackgroundTransparency = 1
     infoLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    infoLabel.Text = "Auto Stop when found:\nRaccoon, Dragonfly, Queen Bee, Red Fox, Disco Bee, Butterfly."
+    infoLabel.Text = "Auto Stop when found:\nRaccoon, Dragonfly, Queen Bee, Red Fox, Disco Bee, Butterfly, etc."
     infoLabel.TextWrapped = true
     infoLabel.Font = FONT
     infoLabel.TextScaled = true
